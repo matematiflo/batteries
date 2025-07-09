@@ -142,6 +142,8 @@ instance : LE Rat := ⟨fun a b => b.blt a = false⟩
 instance (a b : Rat) : Decidable (a ≤ b) :=
   inferInstanceAs (Decidable (_ = false))
 
+set_option pp.showLetValues.threshold 4
+set_option pp.proofs true in
 /-- Multiplication of rational numbers. (This definition is `@[irreducible]` because you don't
 want to unfold it. Use `Rat.mul_def` instead.) -/
 @[irreducible] protected def mul (a b : Rat) : Rat :=
@@ -162,6 +164,36 @@ want to unfold it. Use `Rat.mul_def` instead.) -/
           |>.coprime_div_right (Nat.gcd_dvd_right ..) }
 
 instance : Mul Rat := ⟨Rat.mul⟩
+
+#print axioms Rat.mul
+#print axioms Nat.succ_div_of_dvd
+
+set_option pp.proofs true in
+#print Rat.mul._proof_6
+
+/- path:
+
+#print Rat.mul
+#print axioms Rat.mul
+
+#print Rat.mul._proof_6
+#print axioms Rat.mul._proof_6
+
+#print Int.divExact_eq_tdiv
+#print axioms Int.divExact_eq_tdiv
+
+#print Int.ediv_eq_tdiv
+#print axioms Int.ediv_eq_tdiv
+
+#print Int.tdiv_eq_ediv
+#print axioms Int.tdiv_eq_ediv
+
+#print Nat.succ_div_of_mod_eq_zero
+#print axioms Nat.succ_div_of_mod_eq_zero
+
+#print Nat.succ_div_of_dvd
+#print axioms Nat.succ_div_of_dvd
+-/
 
 /--
 The inverse of a rational number. Note: `inv 0 = 0`. (This definition is `@[irreducible]`
